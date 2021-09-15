@@ -9,15 +9,19 @@ class ProdutoController extends Controller
 {
     public function lista()
     {
-        $html = '<h1>Listagem de produtos com Laravel</h1>';
-        $html .= '<ul>';
         $produtos = DB::select('select * from produtos');
+        // return view('listagem')->with('produtos', $produtos);
+        return view('listagem')->withProdutos($produtos); //magic method
+    }
 
-        foreach ($produtos as $p) {
-            $html .= '<li> Nome: ' . $p->nome . ',
-            Descrição: ' . $p->descricao . '</li>';
+    public function mostra()
+    {
+        $id = 1;
+        $resposta = DB::select('select * from produtos where id = ?', [$id]);
+
+        if (empty($resposta)) {
+            return "Esse produto não existe";
         }
-        $html .= '</ul>';
-        return $html;
+        return view('detalhes')->with('p', $resposta[0]);
     }
 }
