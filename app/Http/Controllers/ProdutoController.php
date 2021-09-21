@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Request;
 use App\Produto;
+use App\Http\Requests\ProdutosRequest;
 
 class ProdutoController extends Controller
 {
@@ -63,16 +64,16 @@ class ProdutoController extends Controller
         return view('produto.formulario');
     }
 
-    public function adiciona()
+    public function adiciona(ProdutosRequest $request)
     {
-        $params = Request::all();
-        $produto = new Produto($params);
-        $produto->save();
-
+        Produto::create($request->all());
         return redirect()
             ->action('ProdutoController@lista')
             ->withInput(Request::only('nome'));
     }
+
+
+    /* a */
 
     /*  public function adiciona()
     {

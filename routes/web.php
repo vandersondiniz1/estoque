@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,3 +33,9 @@ Route::post('/produtos/adiciona', 'ProdutoController@adiciona');
 Route::get('/produtos/json', 'ProdutoController@listaJson');
 
 Route::get('/produtos/remove', 'ProdutoController@remove');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/login', 'LoginController@login');
